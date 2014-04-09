@@ -140,7 +140,174 @@
         </section>
 
         <section data-markdown>
-          ## Making it work
+          ## What about GUI?
+        </section>
+
+        <section data-markdown>
+          ## Android XML layouts
+
+          ![xml](xml.png)
+
+          * Verbose
+          * XML + code boilerplate
+          * Only one per file
+          * No namespacing
+        </section>
+
+        <section data-markdown>
+          ## Macroid
+
+          * GUI language for Android
+          * Written in Scala
+          * Functional
+          * Modular
+        </section>
+
+        <section data-markdown>
+          ## Bricks
+
+          ```scala
+          l[LinearLayout](
+            w[Button],
+            w[TextView]
+          )
+          ```
+        </section>
+
+        <section data-markdown>
+          ## Brick composition
+
+          ```scala
+          val brick1 = w[Button]
+          val brick2 = w[TextView]
+
+          l[LinearLayout](
+            brick1, brick2
+          )
+          ```
+        </section>
+
+        <section data-markdown>
+          ## Tweaking
+
+          ```scala
+          w[TextView] <~ text("Hello")
+          ```
+        </section>
+
+        <section data-markdown>
+          ## Tweak composition
+          
+          ```scala
+          def largeText(str: String) =
+            text(str) + TextSize.large
+
+          w[TextView] <~ largeText("Hello")
+          ```
+        </section>
+
+        <section data-markdown class="smaller-code">
+          ## A complete example
+
+          ```scala
+          var greeting = slot[TextView]
+ 
+          l[LinearLayout](
+            w[Button] <~
+              text("Greet me!") <~
+              On.click {
+                greeting <~ show
+              },
+              
+            w[TextView] <~
+              text("Hello there") <~
+              wire(greeting) <~ hide 
+          )
+          ```
+        </section>
+
+        <section data-markdown>
+          ## What about adaptivity?
+        </section>
+
+        <section data-markdown>
+          ## The Android way
+
+          * A folder per screen size
+          * Limited reuse
+        </section>
+
+        <section data-markdown>
+          ## Media queries
+
+          ```scala
+          val testStyle =
+            widerThan(400 dp) ?
+            TextSize.large |
+            TextSize.medium
+
+          w[TextView] <~ textStyle
+          ```
+        </section>
+
+        <section data-markdown>
+          ## New ways of expression
+        </section>
+
+        <section data-markdown>
+          ## Optional tweaking
+
+          ```scala
+          onlySeenInHD <~ (hdpi ? show)
+          ```
+        </section>
+
+        <section data-markdown>
+          ## Batch tweaking
+
+          ```scala
+          List(textView1, textView2) <~ hide
+          ```
+        </section>
+
+        <section data-markdown>
+          ## Showing progress
+
+          ```scala
+          val task = Future { ... }
+
+          myProgressBar <~ showProgress(task)
+          ```
+        </section>
+
+        <section data-markdown>
+          ## Future is now
+
+          ```scala
+          val futureCaption = Future {
+            Thread.sleep(5000)
+            text(caption)
+          }
+
+          myTextView <~ futureCaption
+          ```
+        </section>
+
+        <section data-markdown>
+          ## Snails
+
+          ```scala
+          myTextView <~
+            text("Voilà") <@~
+            fadeIn(400) <@~
+            delay(500) <@~
+            text("Bye!") <@~
+            fadeOut(400)
+          ```
+        </section>
+
+        <section data-markdown>
+          ## And now to something completely different...
         </section>
 
         <section data-markdown>
@@ -148,9 +315,9 @@
             ## Learn more
 
             * [Scala website](http://scala-lang.org/)
-            * [THE Scala book](http://www.artima.com/pins1ed/)
+            * [*The* Scala book](http://www.artima.com/pins1ed/)
             * [SBT website](http://www.scala-sbt.org/)
-            * [Scala+Android Mailing list](https://groups.google.com/forum/#!forum/scala-on-android)
+            * [Scala+Android mailing list](https://groups.google.com/forum/#!forum/scala-on-android)
             * [SBT Android plugin](https://github.com/pfn/android-sdk-plugin)
             * [Macroid website](https://github.com/macroid/macroid)
           </script>

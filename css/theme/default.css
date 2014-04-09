@@ -25,6 +25,11 @@ body {
   background: none;
 }
 
+.reveal section.smaller-code code {
+  font-size: 1em;
+  max-height: none;
+}
+
 .reveal pre {
   width: auto;
   display: inline-block;
