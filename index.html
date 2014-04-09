@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Android And Functional Programming For Great Good™</title>
+
+    <meta name="description" content="Codebits2014 Slides">
+    <meta name="author" content="Nick">
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- Typekit -->
+    <script type="text/javascript" src="//use.typekit.net/gsg2lcs.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+      document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section>
+          <h2>Android &amp;<br/>Functional Programming<br/>For Great Good™</h2>
+          <h4>
+            Nick <a href="https://twitter.com/stanchme">@stanchme</a><br/>
+            <a href="http://github.com/stanch">http://github.com/stanch</a>
+          </h4>
+        </section>
+
+        <section data-markdown>
+          ## What is Android?
+        </section>
+
+        <section>
+          <h2>A kind of candy?</h2>
+          <img src="http://www.android.com/new/images/banners/meet3-1600.jpg" width="800px"/>
+        </section>
+
+        <section data-markdown>
+          ## What is functional programming?
+        </section>
+
+        <section>
+          <h2>Composability</h2>
+          <div style="overflow: hidden; width: 400px; margin: 0 auto"><img src="http://m1.behance.net/rendition/modules/57033867/disp/28b9fc09596119d553e2b81245fee3ef.png" height="200px" style="margin: -60px 0 0 0"/></div>
+          ↓<br />
+          <img src="http://m1.behance.net/rendition/modules/57026595/disp/0b8fae7a095dcafbdfc9aceeff342e66.png" width="379px"/>
+        </section>
+
+        <section>
+          <h2>Abstraction</h2>
+          <img src="http://mrlagency.co.uk/wp-content/uploads/2012/11/Lego.jpg" width="800px" />
+        </section>
+
+        <section data-markdown>
+          ## Now it makes sense
+
+          ![hans](http://static.bips.channel4.com/bips/orig/videos/2776180868001.jpg)
+
+          > “Plumbing’s just Lego, innit? Water Lego...”
+
+          — Superhans, *Peep Show*
+        </section>
+
+        <section data-markdown>
+          ## Tools of the trade
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Scala
+
+            ![scala](http://scala-lang.org/resources/img/smooth-spiral.png)
+
+            * General-purpose language
+            * *Object-Oriented* + *Functional*
+            * Clarity + Scalability
+            * Compiles to Java Bytecode
+          </script>
+        </section>
+
+        <section>
+          <h2>Who…</h2>
+          <h3>…makes Scala?</h3>
+          <img src="http://lampwww.epfl.ch/~roeckl/epfl_logo.gif" height="90" style="background: white"/>
+          <img src="http://dommkopfq6m1m.cloudfront.net/assets/static/eff87718a2f9e8fcdba3e9910d4261eaecd65528/images/typesafe@2x.png" height="90" style="background: white"/>
+          <h3>…uses Scala?</h3>
+          <img src="http://dommkopfq6m1m.cloudfront.net/assets/static/d9e8ab41929ada09363189f35b8ddee2a6bf2b60/images/home/clients-big.png" style="background: white"/>
+        </section>
+
+        <section data-markdown>
+          ## Values
+
+          ```scala
+          val x = 4
+          ```
+        </section>
+
+        <section data-markdown>
+          ## Methods
+
+          ```scala
+          def add(x: Int, y: Int) = {
+            x + y
+          }
+          ```
+        </section>
+
+        <section data-markdown>
+          ## Syntax-bending
+
+          ```scala
+          5.add(5) ⇔ 5 add 5
+
+          bird.♫("lala") ⇔ bird ♫ "lala"
+
+          say("Hi!") ⇔ say { "Hi!" }
+          ```
+        </section>
+
+        <section data-markdown>
+          ## Making it work
+        </section>
+
+        <section data-markdown>
+          <script type="text/template">
+            ## Learn more
+
+            * [Scala website](http://scala-lang.org/)
+            * [THE Scala book](http://www.artima.com/pins1ed/)
+            * [SBT website](http://www.scala-sbt.org/)
+            * [Scala+Android Mailing list](https://groups.google.com/forum/#!forum/scala-on-android)
+            * [SBT Android plugin](https://github.com/pfn/android-sdk-plugin)
+            * [Macroid website](https://github.com/macroid/macroid)
+          </script>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.min.js"></script>
+
+    <script>
+
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        backgroundTransition: 'slide',
+        transition: 'linear',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+          { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+          { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+          { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+          { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+      });
+
+    </script>
+
+  </body>
+</html>
