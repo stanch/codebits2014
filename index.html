@@ -89,7 +89,7 @@
 
         <section data-markdown>
           <script type="text/template">
-            ## Scala
+            ## Scala [[+]](http://scala-lang.org/)
 
             ![scala](http://scala-lang.org/resources/img/smooth-spiral.png)
 
@@ -244,7 +244,7 @@
         </section>
 
         <section data-markdown>
-          ## Keep off my lawn!
+          ## Get off my lawn!
 
           > Run a difficult computation
 
@@ -447,6 +447,70 @@
 
         <section data-markdown>
           ## And now to something completely different...
+        </section>
+
+        <section data-markdown>
+          ## Starting procedures
+
+          1. Install [SBT](http://www.scala-sbt.org/) (build tool)
+          2. Install [Intellij IDEA](http://www.jetbrains.com/idea/) (or Android Studio)
+          3. Add [Scala](http://plugins.jetbrains.com/plugin/?id=1347) and [SBT](http://plugins.jetbrains.com/plugin/5007?pr=idea) plugins to IDEA
+          4. Add [Android](https://github.com/pfn/android-sdk-plugin) and [IDEA](https://github.com/mpeltonen/sbt-idea) plugins to SBT
+          5. Write a build file
+          6. Generate IDE project files
+          7. Run! *-or-* In utter rage, post in the [Mailing list](https://groups.google.com/forum/#!forum/scala-on-android)
+        </section>
+
+        <section data-markdown class="smaller-code">
+          ## The build file
+
+          ```scala
+          name := "Project-name"
+
+          version := "1.0"
+
+          platformTarget in Android := "android-19"
+
+          libraryDependencies ++= Seq(
+            "com.loopj.android" % "android-async-http" % "1.4.4",
+            "com.android.support" % "support-v13" % "19.1.0",
+            aar("com.google.android.gms" % "play-services" % "4.0.30")
+          )
+          ```
+        </section>
+
+        <section data-markdown>
+          ## Connecting the IDE
+
+          ```
+          sbt
+          > gen-idea
+          ```
+        </section>
+
+        <section data-markdown>
+          (live IDE demo)
+        </section>
+
+        <section data-markdown>
+          ## And finally...
+        </section>
+
+        <section data-markdown>
+          ## Some flies in the ointment
+
+          #### Scala library is around 5 MB
+          ↓
+          #### Squeeze it with ProGuard
+          ↓
+          #### Build time goes up to 1 min / 10K LOC;
+          #### ProGuard config takes some effort
+
+          ![fly](http://www.picgifs.com/graphics/f/flies/graphics-flies-254732.gif)
+        </section>
+
+        <section data-markdown>
+          ## That’s all, folks!
         </section>
 
         <section data-markdown>
