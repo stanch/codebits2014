@@ -109,38 +109,199 @@
           <img src="http://dommkopfq6m1m.cloudfront.net/assets/static/d9e8ab41929ada09363189f35b8ddee2a6bf2b60/images/home/clients-big.png" style="background: white"/>
         </section>
 
+        <section>
+          <section data-markdown data-transition="none">
+            ## Values
+
+            ```scala
+            val x = 4
+            ```
+          </section>
+          <section data-markdown data-transition="none">
+            ## Values
+
+            ```scala
+            val x: Int = 4
+            ```
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown data-transition="none">
+            ## Methods
+
+            ```scala
+            def add(x: Int, y: Int) = x + y
+            ```
+          </section>
+          <section data-markdown data-transition="none">
+            ## Methods
+
+            ```scala
+            def add(x: Int, y: Int): Int = {
+              x + y
+            }
+            ```
+          </section>
+        </section>
+
+        <section>
+          <section data-markdown data-transition="none">
+            ## Anonymous functions
+
+            ```scala
+            (x: Int) ⇒ x + 3
+            ```
+          </section>
+          <section data-markdown data-transition="none">
+            ## Anonymous functions
+
+            ```scala
+            x ⇒ x + 3
+            ```
+          </section>
+          <section data-markdown data-transition="none">
+            ## Anonymous functions
+
+            ```scala
+            _ + 3
+            ```
+          </section>
+        </section>
+
+        <section>
+          <h2>Syntax-bending</h2>
+          <div class="fragment" data-markdown>
+            ```scala
+            5.add(5) ⇔ 5 add 5
+            ```
+          </div>
+          <div class="fragment" data-markdown>
+            ```scala
+            bird.♫("lala") ⇔ bird ♫ "lala"
+            ```
+          </div>
+          <div class="fragment" data-markdown>
+            ```scala
+            say("Hi!") ⇔ say { "Hi!" }
+            ```
+          </div>
+        </section>
+
         <section data-markdown>
-          ## Values
+          ## Let’s see it in action!
+        </section>
+
+        <section data-markdown>
+          ## A cartographic case
+
+          > Given a list of cities,
+
+          > **select** those with a river,
+
+          > **take** top-**5** of
+
+          > the **most populated ones**, and
+
+          > put **each** of them on the map.
+        </section>
+
+        <section data-markdown>
+          ## Code poetry? [[+]](http://twitter.github.io/scala_school/collections.html)
 
           ```scala
-          val x = 4
+          cities
+            .filter(_.hasRiver)
+            .sortBy(_.population)
+            .take(5)
+            .foreach { c ⇒
+              addToMap(c.name, c.coordinates)
+            }
           ```
         </section>
 
         <section data-markdown>
-          ## Methods
+          ## An entitling case
+
+          > **Not before the UI fragment is initialized,**
+
+          > if arguments were passed,
+
+          > **get** the **title** from arguments,
+
+          > **or else** set the title to “Hello”.
+        </section>
+
+        <section data-markdown>
+          ## Code haiku! [[+]](http://danielwestheide.com/blog/2012/12/19/the-neophytes-guide-to-scala-part-5-the-option-type.html)
 
           ```scala
-          def add(x: Int, y: Int) = {
-            x + y
+          lazy val title =
+            Option(getArguments)
+            .map(_.getString("title"))
+            .getOrElse("Hello")
+          ```
+        </section>
+
+        <section data-markdown>
+          ## Keep off my lawn!
+
+          > Run a difficult computation
+
+          > **outside the main thread**
+
+          > and do something with the result
+
+          > when it’s ready.
+        </section>
+
+        <section>
+          <h2>The future <a href="http://docs.scala-lang.org/overviews/core/futures.html">[+]</a></h2>
+
+          <div class="fragment" data-markdown>
+            ```scala
+            val result = Future {
+              val x = longComputation(41.5)
+              x + 5
+            }
+            ```
+          </div>
+          <div class="fragment" data-markdown>
+            ```scala
+            result onComplete {
+              case Success(x) ⇒ doSomething(x)
+              case Failure(t) ⇒ handle(t)
+            }
+            ```
+          </div>
+        </section>
+
+        <section data-markdown>
+          ## Tomorrow is today [[+]](http://docs.scala-lang.org/overviews/core/futures.html)
+
+          ```scala
+          val message = Future { ... }
+
+          val loudMessage = message.map(_ + "!")
+
+          loudMessage onComplete { ... }
+          ```
+        </section>
+
+        <section data-markdown>
+          ## Async orchestration [[+]](http://docs.scala-lang.org/sips/pending/async.html)
+
+          ```scala
+          val euros = async {
+            val d = await(getDollarsFromDb)
+            val r = await(googleConversionRate)
+            d * r
           }
           ```
         </section>
 
         <section data-markdown>
-          ## Syntax-bending
-
-          ```scala
-          5.add(5) ⇔ 5 add 5
-
-          bird.♫("lala") ⇔ bird ♫ "lala"
-
-          say("Hi!") ⇔ say { "Hi!" }
-          ```
-        </section>
-
-        <section data-markdown>
-          ## What about GUI?
+          ## Wait, what about GUI?
         </section>
 
         <section data-markdown>
@@ -155,12 +316,9 @@
         </section>
 
         <section data-markdown>
-          ## Macroid
+          ## Macroid [[+]](https://github.com/macroid/macroid)
 
-          * GUI language for Android
-          * Written in Scala
-          * Functional
-          * Modular
+          > Experimental modular functional UI language for Android, written in Scala.
         </section>
 
         <section data-markdown>
@@ -234,14 +392,14 @@
           ## The Android way
 
           * A folder per screen size
-          * Limited reuse
+          * Limited layout reuse
         </section>
 
         <section data-markdown>
           ## Media queries
 
           ```scala
-          val testStyle =
+          val textStyle =
             widerThan(400 dp) ?
             TextSize.large |
             TextSize.medium
@@ -252,6 +410,10 @@
 
         <section data-markdown>
           ## New ways of expression
+
+          ```scala
+          ? <~ ?
+          ```
         </section>
 
         <section data-markdown>
@@ -271,17 +433,7 @@
         </section>
 
         <section data-markdown>
-          ## Showing progress
-
-          ```scala
-          val task = Future { ... }
-
-          myProgressBar <~ showProgress(task)
-          ```
-        </section>
-
-        <section data-markdown>
-          ## Future is now
+          ## Tweaking from the future
 
           ```scala
           val futureCaption = Future {
@@ -290,19 +442,6 @@
           }
 
           myTextView <~ futureCaption
-          ```
-        </section>
-
-        <section data-markdown>
-          ## Snails
-
-          ```scala
-          myTextView <~
-            text("Voilà") <@~
-            fadeIn(400) <@~
-            delay(500) <@~
-            text("Bye!") <@~
-            fadeOut(400)
           ```
         </section>
 
