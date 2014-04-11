@@ -52,6 +52,18 @@ body {
   text-shadow: none;
 }
 
+table.future {
+  border: 1px solid white;
+  border-collapse: collapse;
+  margin: 0.5em auto 0.2em auto;
+}
+
+table.future td {
+  border: 1px solid white;
+  padding: 5px;
+  text-align: center;
+}
+
 /*********************************************
  * HEADERS
  *********************************************/

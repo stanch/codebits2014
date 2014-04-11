@@ -93,20 +93,15 @@
 
             ![scala](http://scala-lang.org/resources/img/smooth-spiral.png)
 
-            * General-purpose language
-            * *Object-Oriented* + *Functional*
-            * Clarity + Scalability
             * Compiles to Java Bytecode
+            * *Object-Oriented* + *Functional*
           </script>
         </section>
 
-        <section>
-          <h2>Who…</h2>
-          <h3>…makes Scala?</h3>
-          <img src="http://lampwww.epfl.ch/~roeckl/epfl_logo.gif" height="90" style="background: white"/>
-          <img src="http://dommkopfq6m1m.cloudfront.net/assets/static/eff87718a2f9e8fcdba3e9910d4261eaecd65528/images/typesafe@2x.png" height="90" style="background: white"/>
-          <h3>…uses Scala?</h3>
-          <img src="http://dommkopfq6m1m.cloudfront.net/assets/static/d9e8ab41929ada09363189f35b8ddee2a6bf2b60/images/home/clients-big.png" style="background: white"/>
+        <section data-markdown>
+          ## Who uses Scala?
+          
+          ![users](scalausers.png)
         </section>
 
         <section>
@@ -221,15 +216,26 @@
         </section>
 
         <section data-markdown>
-          ## An entitling case
+          ## Not too early!
 
-          > **Not before the UI fragment is initialized,**
+          > Declare a property you need,
 
-          > if arguments were passed,
+          > but do not call any APIs
 
-          > **get** the **title** from arguments,
+          > before the UI is ready
+        </section>
 
-          > **or else** set the title to “Hello”.
+        <section data-markdown>
+          ## Some laziness helps 
+
+          ```scala
+          lazy val title =
+            getArguments.getString("title")
+          ```
+        </section>
+
+        <section data-markdown>
+          ## What about all those `null`s?
         </section>
 
         <section data-markdown>
@@ -238,7 +244,7 @@
           ```scala
           lazy val title =
             Option(getArguments)
-            .map(_.getString("title"))
+            .flatMap(a ⇒ Option(a.getString("title")))
             .getOrElse("Hello")
           ```
         </section>
@@ -276,28 +282,87 @@
           </div>
         </section>
 
-        <section data-markdown>
-          ## Tomorrow is today [[+]](http://docs.scala-lang.org/overviews/core/futures.html)
-
-          ```scala
-          val message = Future { ... }
-
-          val loudMessage = message.map(_ + "!")
-
-          loudMessage onComplete { ... }
-          ```
+        <section>
+          <h2>What is a future?</h2>
+          <table class="future">
+            <tr>
+              <td style="width: 10em">many seconds</td>
+              <td>⇒ 42</td>
+            </tr>
+          </table>
         </section>
 
         <section data-markdown>
-          ## Async orchestration [[+]](http://docs.scala-lang.org/sips/pending/async.html)
+          > “Don’t put off until tomorrow what you can do today”
 
-          ```scala
-          val euros = async {
-            val d = await(getDollarsFromDb)
-            val r = await(googleConversionRate)
-            d * r
-          }
-          ```
+          — Benjamin Franklin
+        </section>
+
+         <section>
+          <section>
+            <h2>Operating in the future</h2>
+            <table class="future">
+              <tr>
+                <td style="width: 10em">many seconds</td>
+                <td>⇒ 42</td>
+              </tr>
+            </table>
+            ↓
+            <table class="future">
+              <tr>
+                <td style="width: 10.6em">many seconds</td>
+                <td>⇒ 43</td>
+              </tr>
+            </table>
+          </section>
+          <section data-markdown>
+            ## Operating in the future [[+]](http://docs.scala-lang.org/overviews/core/futures.html)
+
+            ```scala
+            val fortyTwo = Future { ... }
+
+            val fortyThree = fortyTwo.map(_ + 1)
+
+            fortyThree onComplete { ... }
+            ```
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h2>Async orchestration</h2>
+             <table class="future">
+              <tr>
+                <td style="width: 10em">get from database</td>
+                <td>⇒ $30</td>
+              </tr>
+            </table>
+            *
+            <table class="future">
+              <tr>
+                <td style="width: 5em">ask google</td>
+                <td>⇒ 0.72 €/$</td>
+              </tr>
+            </table>
+            ↓
+            <table class="future">
+              <tr>
+                <td style="width: 12em">a few seconds later</td>
+                <td>⇒ €21.6</td>
+              </tr>
+            </table>
+          </section>
+          <section data-markdown>
+            ## Async orchestration [[+]](http://docs.scala-lang.org/sips/pending/async.html)
+
+            ```scala
+            val euros = async {
+              val d = await(getDollarsFromDb)
+              val r = await(googleConversionRate)
+              d * r
+            }
+            ```
+          </section>
         </section>
 
         <section data-markdown>
@@ -321,47 +386,58 @@
           > Experimental modular functional UI language for Android, written in Scala.
         </section>
 
-        <section data-markdown>
-          ## Bricks
+        <section>
+          <section data-markdown>
+            ## Bricks
 
-          ```scala
-          l[LinearLayout](
-            w[Button],
-            w[TextView]
-          )
-          ```
+            ```scala
+            w[Button]
+            ```
+          </section>
+          <section data-markdown>
+            ## Bricks
+
+            ```scala
+            l[LinearLayout](
+              w[Button],
+              w[TextView]
+            )
+            ```
+          </section>
+          <section data-markdown>
+            ## Bricks
+
+            ```scala
+            val brick1 = w[Button]
+            val brick2 = w[TextView]
+
+            l[LinearLayout](
+              brick1, brick2
+            )
+            ```
+          </section>
         </section>
 
-        <section data-markdown>
-          ## Brick composition
+        <section>
+          <section data-markdown>
+            ## Tweaking
 
-          ```scala
-          val brick1 = w[Button]
-          val brick2 = w[TextView]
+            ```scala
+            w[TextView] <~ text("Hello")
+            ```
+          </section>
+          <section data-markdown>
+            ## Tweaking
+            
+            ```scala
+            def largeText(str: String) =
+              text(str) +
+              TextSize.large +
+              padding(left = 8 dp)
 
-          l[LinearLayout](
-            brick1, brick2
-          )
-          ```
-        </section>
-
-        <section data-markdown>
-          ## Tweaking
-
-          ```scala
-          w[TextView] <~ text("Hello")
-          ```
-        </section>
-
-        <section data-markdown>
-          ## Tweak composition
-          
-          ```scala
-          def largeText(str: String) =
-            text(str) + TextSize.large
-
-          w[TextView] <~ largeText("Hello")
-          ```
+            w[TextView] <~ largeText("Hello")
+            ```
+          </section>
         </section>
 
         <section data-markdown class="smaller-code">
@@ -432,21 +508,41 @@
           ```
         </section>
 
-        <section data-markdown>
-          ## Tweaking from the future
+        <section>
+          <section>
+            <h2>Tweaking from the future</h2>
+            <table class="future">
+              <tr>
+                <td style="width: 10em">many seconds</td>
+                <td>⇒ "Hello"</td>
+              </tr>
+            </table>
+            ↓
+            <table class="future">
+              <tr>
+                <td style="width: 10.2em">many seconds</td>
+                <td>⇒ text("Hello")</td>
+              </tr>
+            </table>
+          </section>
+          <section data-markdown>
+            ## Tweaking from the future
 
-          ```scala
-          val futureCaption = Future {
-            Thread.sleep(5000)
-            text(caption)
-          }
+            ```scala
+            val futureCaption = Future {
+              Thread.sleep(5000)
+              text("Hello")
+            }
 
-          myTextView <~ futureCaption
-          ```
+            myTextView <~ futureCaption
+            ```
+          </section>
         </section>
 
         <section data-markdown>
-          ## And now to something completely different...
+          ## And now for something completely different...
+
+          ![Cleese](http://static.tvtropes.org/pmwiki/pub/images/and-now-for-something-completely-different_2729.jpg)
         </section>
 
         <section data-markdown>
@@ -493,10 +589,6 @@
         </section>
 
         <section data-markdown>
-          ## And finally...
-        </section>
-
-        <section data-markdown>
           ## Some flies in the ointment
 
           #### Scala library is around 5 MB
@@ -507,10 +599,6 @@
           #### ProGuard config takes some effort
 
           ![fly](http://www.picgifs.com/graphics/f/flies/graphics-flies-254732.gif)
-        </section>
-
-        <section data-markdown>
-          ## That’s all, folks!
         </section>
 
         <section data-markdown>
