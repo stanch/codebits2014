@@ -225,7 +225,7 @@
           ```scala
           cities
             .filter(_.hasRiver)
-            .sortBy(_.population)
+            .sortBy(-_.population)
             .take(5)
             .foreach { c ⇒
               addToMap(c.name, c.coordinates)
