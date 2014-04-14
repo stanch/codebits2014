@@ -375,8 +375,10 @@
 
             ```scala
             val euros = async {
-              val d = await(getDollarsFromDb)
-              val r = await(googleConversionRate)
+              val future1 = getDollarsFromDb
+              val future2 = googleConversionRate
+              val d = await(future1)
+              val r = await(future2)
               d * r
             }
             ```
